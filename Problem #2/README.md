@@ -98,3 +98,10 @@ Please input any number: 3
 # Applicant Section
 
 ตั้งแต่ส่วนนี้ลงไป เป็นส่วนที่ผู้สมัครสามารถแก้ไขได้ตามอัธยาศัย ซึ่งอาจจะเป็นข้อสันนิษฐานหรือไอเดียเพิ่มเติมก็ได้
+
+- input ตามที่ interface บอกไว้ได้เลยครับ ไม่ได้ทำ error input handling ไว้
+- ภาษาที่ใช้ python , dev ด้วย python 3.8
+- ใช้ command นี้รัน
+   ```
+   py prob2.py
+   ```
