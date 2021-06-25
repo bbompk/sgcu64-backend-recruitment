@@ -37,6 +37,8 @@ def Op() :
                     print('     Checked out from '+locations[i])
             data[location_ind].append(phone_no)
             print('     Checked in to '+locations[location_ind])
+        else : 
+            print('     Already checked in to '+locations[location_ind])
     if c == '2' :
         print('Check out')
         phone_no = input('Enter phone number : ')
