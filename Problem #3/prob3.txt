@@ -17,8 +17,8 @@
      1.successful response :
        ·Response Body : JSON
         {
-	         "msg" : "Employee Created"
-	         "employee" : ข้อมูลพนักงานจาก Request Body 
+	   "msg" : "Employee Created"
+	   "employee" : ข้อมูลพนักงานจาก Request Body 
         }
        ·Status code 201 Created
      2.missing field :
@@ -27,6 +27,7 @@
            "msg" : "Please include all fields"
         }
        ·Status code : 400 Bad Request
+
 2. ดูข้อมูลพนักงานทุกคน
   -Path: /employees
   -Method : GET
@@ -37,9 +38,9 @@
   -Response:
      ·Response Body : JSON
      {
-	      "employees" = [
-	        {
-	           "id" : "12345",
+	"employees" : [
+	  {
+	     "id" : "12345",
              "firstName" : "aaa",
              ...
           },
@@ -47,6 +48,7 @@
         ]
      }
      ·Status code : 200 OK
+
 3. แก้ไขข้อมูลของพนักวาน
   -Path: /employees/:id
   -Method : PUT
@@ -70,13 +72,13 @@
      2.employee's id not found :
        ·Response Body : JSON
         {
-	         "msg" : "employee with id 69420 not found"
+	   "msg" : "employee with id 69420 not found"
         }
        ·Status code: 400 bad request
 
 4. ลบข้อมูลของพนักงาน
   -Path: /employees/:id
-  -Method : Delete
+  -Method : DELETE
   -Headers : ไม่มีเพิ่มเติม
   -Request Body : -
   -Request Params : id ของพนักงานที่ต้องการจะ delete
@@ -91,7 +93,7 @@
      2.employee's id not found :
        ·Response Body : JSON
         {
-	         "msg" : "employee with id 69420 not found"
+	   "msg" : "employee with id 69420 not found"
         }
        ·Status code: 400 bad request
 
@@ -108,7 +110,7 @@
         {
            "employee" = [
              {
-		            "id" : "12345"
+		"id" : "12345"
                 "firstName" : "aaa"
                 ...
              },
@@ -119,7 +121,7 @@
      2.invalid request query :
        ·Response Body : JSON
         {
-	         "msg" : "invalid request query"
+	   "msg" : "invalid request query"
         }
        ·Status code: 400 bad request
 
