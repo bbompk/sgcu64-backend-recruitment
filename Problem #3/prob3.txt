@@ -1,0 +1,130 @@
+1. เพิ่มพนักงานเข้าไปในระบบ
+  -Path: /employees
+  -Method : POST
+  -Request Headers : ไม่มีเพิ่มเติม 
+  -Request Body : JSON
+   {
+      "id" : "12345",
+      "password" : "6e6ed938298daf79a0173ebca30521a72ab07a9f535bfd6b178e0fc39dff2f4d"	
+      "firstName" : "aaa", 
+      "lastName" : "bbb",
+      "role" : "Employee", 
+      "slary" : 20000
+   }
+  -Request Params : -
+  -Request Query : -
+  -Response:
+     1.successful response :
+       ·Response Body : JSON
+        {
+	         "msg" : "Employee Created"
+	         "employee" : ข้อมูลพนักงานจาก Request Body 
+        }
+       ·Status code 201 Created
+     2.missing field :
+       ·Response Body : JSON
+        {
+           "msg" : "Please include all fields"
+        }
+       ·Status code : 400 Bad Request
+2. ดูข้อมูลพนักงานทุกคน
+  -Path: /employees
+  -Method : GET
+  -Request Headers : ไม่มีเพิ่มเติม  
+  -Request Body : -
+  =Request Params : -
+  -Request Query : -
+  -Response:
+     ·Response Body : JSON
+     {
+	      "employees" = [
+	        {
+	           "id" : "12345",
+             "firstName" : "aaa",
+             ...
+          },
+          ...
+        ]
+     }
+     ·Status code : 200 OK
+3. แก้ไขข้อมูลของพนักวาน
+  -Path: /employees/:id
+  -Method : PUT
+  -Headers : ไม่มีเพิ่มเติม
+  -Request Body : JSON
+   {
+      "lastName" : "ccc",
+      "role" : "HR", 
+      "salary" : 300
+   }
+  -Request Params : id ของพนักงานที่ต้องการจะแก้ไขข้อมูล
+  -Request Query : -
+  -Response: 
+     1.successful response :
+       ·Response Body : JSON
+        {
+           "msg" : employee updated
+           "employee" : ข้อมูลของพนักงานที่ถูกแก้ไข   
+        }
+       ·Status Code: 200 OK
+     2.employee's id not found :
+       ·Response Body : JSON
+        {
+	         "msg" : "employee with id 69420 not found"
+        }
+       ·Status code: 400 bad request
+
+4. ลบข้อมูลของพนักงาน
+  -Path: /employees/:id
+  -Method : Delete
+  -Headers : ไม่มีเพิ่มเติม
+  -Request Body : -
+  -Request Params : id ของพนักงานที่ต้องการจะ delete
+  -Request Query : -
+  -Response:
+     1.successful response :
+       ·Response Body : JSON
+        {
+           "msg" : employee with id 12345 deleted
+        }
+       ·Status Code: 200 OK
+     2.employee's id not found :
+       ·Response Body : JSON
+        {
+	         "msg" : "employee with id 69420 not found"
+        }
+       ·Status code: 400 bad request
+
+5. ค้นหาพนักงานโดยใช้ชื่อ นามสกุล หรือตำแหน่ง
+  -Path: /employees
+  -Method : GET
+  -Headers : ไม่มีเพิ่มเติม
+  -Request Body : -
+  -Request Params : -
+  -Request Query : firstname หรือ lastname หรือ role (เช่น /employees?role=security_guard)
+  -Response:
+     1.successful response :
+       ·Response Body : JSON
+        {
+           "employee" = [
+             {
+		            "id" : "12345"
+                "firstName" : "aaa"
+                ...
+             },
+             ...
+           ]
+        }
+       ·Status Code: 200 OK
+     2.invalid request query :
+       ·Response Body : JSON
+        {
+	         "msg" : "invalid request query"
+        }
+       ·Status code: 400 bad request
+
+ระบบ Authentication 
+  - เลือกใช้  JWT ในการจำกัดการเข้าถึง api
+  - ระบบ login ด้วย id และ password หากสามารถ login ได้ ( id กับ password(hashed) ตรงกับใน db ) จะสร้าง token เก็บไว้โดยใช้ payload คือ {id, role}, secretkey และอายุของ token 
+  - มี middleware เพื่อใช้  verify token ซึ่งจะเอา token จาก authorization headers (เพิ่ม authorization headers ให้ api ด้านบน)  เช็คว่าแนบ Token มามั้ย ถ้าไม่ได้แนบมาก็จะ response status 403 Forbidden กลับไป
+  - ให้ api ด้านบนนำ token มา decode เพื่อเช็คว่า role คือ HR มั้ย ถ้าไม่ใช่ก็ response status 403 Forbidden กลับไป
