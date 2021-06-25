@@ -105,3 +105,7 @@ Please input any number: 3
    ```
    py prob2.py
    ```
+- มี feature นอกเหนือจากที่โจทยกำหนดคือ
+  1. มี option quit เพื่อออกจากโปรแกรม
+  2. หลังจากแต่ละ command จะรอ 3 วินาทีก่อนกลับไป main menu
+  3. check in สามารถเพิ่่มสถานที่ได้
